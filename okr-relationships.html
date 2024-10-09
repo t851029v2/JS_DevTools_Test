@@ -410,7 +410,14 @@
         // Ensure descriptions are properly added
         function addDescriptions(node) {
             if (node.type === "platform-okr") {
-                node.description = "Platform OKRs represent the overarching objectives that guide our product groups.";
+                if (node.name === "Automation & Efficiency") {
+                    node.description = "Automation & Efficiency focuses on streamlining processes to enhance productivity and reduce manual interventions.";
+                } else if (node.name === "Developer Experience") {
+                    node.description = "Developer Experience aims to create seamless and satisfying interactions for developers using our platform.";
+                } else if (node.name === "AI-Accelerated Development") {
+                    node.description = "AI-Accelerated Development leverages artificial intelligence to boost developer productivity and innovation.";
+                }
+                // Add more strategic themes as needed
             } else if (node.type === "product-group") {
                 if (node.name === "Code & Collaboration") {
                     node.description = "Code & Collaboration focuses on improving the development workflow and code quality through enhanced tools and processes.";
