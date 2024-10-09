@@ -191,7 +191,7 @@
 
                 console.log('SVG created');
 
-                const i = 0;
+                let i = 0; // Change this to let instead of const
                 const duration = 750;
                 const root = d3.hierarchy(treeData, function(d) { return d.children; });
                 root.x0 = height / 2;
