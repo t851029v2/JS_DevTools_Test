@@ -26,7 +26,12 @@
         }
         .node text {
             font: 12px sans-serif;
-            fill: #fff;
+            fill: #4a90e2; /* Blue color for hyperlinks */
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .node text:hover {
+            fill: #2a6496;
         }
         .link {
             fill: none;
@@ -49,14 +54,25 @@
             stroke: #f4a261;
             stroke-width: 3px;
         }
-        .node text {
-            font: 12px sans-serif;
+        .description {
+            position: absolute;
+            background-color: #fff; /* White background for contrast */
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 300px;
+            z-index: 1000;
+            display: none;
+            color: #333; /* Dark text for readability */
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
     <h1>AI-Focused Developer Platform Strategy - Cascading OKRs</h1>
     <div id="okr-tree"></div>
+    <div id="description" class="description"></div>
     <script>
         const treeData = {
             name: "North Star: Production in a Day",
@@ -119,18 +135,18 @@
                                     name: "Accelerate code-to-review process",
                                     type: "objective",
                                     children: [
-                                        { name: "Cut time from commit to passing all checks by 50%", type: "key-result", relatesTo: "Automation & Efficiency" },
-                                        { name: "Reduce average code review time by 40%", type: "key-result", relatesTo: "Automation & Efficiency" },
-                                        { name: "Boost first-time approval rate in code reviews by 30%", type: "key-result", relatesTo: "Developer Experience" }
+                                        { name: "Cut time from commit to passing all checks by 50%", type: "key-result" },
+                                        { name: "Reduce average code review time by 40%", type: "key-result" },
+                                        { name: "Boost first-time approval rate in code reviews by 30%", type: "key-result" }
                                     ]
                                 },
                                 {
                                     name: "Enhance developer productivity with AI-assisted coding",
                                     type: "objective",
                                     children: [
-                                        { name: "Increase code completion accuracy by 50% using AI suggestions", type: "key-result", relatesTo: "AI-Accelerated Development" },
-                                        { name: "Reduce time spent on boilerplate code by 70%", type: "key-result", relatesTo: "Automation & Efficiency" },
-                                        { name: "Improve developer satisfaction with coding tools by 40%", type: "key-result", relatesTo: "Developer Experience" }
+                                        { name: "Increase code completion accuracy by 50% using AI suggestions", type: "key-result" },
+                                        { name: "Reduce time spent on boilerplate code by 70%", type: "key-result" },
+                                        { name: "Improve developer satisfaction with coding tools by 40%", type: "key-result" }
                                     ]
                                 }
                             ]
@@ -143,18 +159,114 @@
                                     name: "Streamline architecture design process using AI",
                                     type: "objective",
                                     children: [
-                                        { name: "Decrease time from design initiation to approval by 50%", type: "key-result", relatesTo: "Automation & Efficiency" },
-                                        { name: "Increase architecture design consistency by 80%", type: "key-result", relatesTo: "AI-Accelerated Development" },
-                                        { name: "Reduce costs associated with architectural rework by 40%", type: "key-result", relatesTo: "AI-Accelerated Development" }
+                                        { name: "Decrease time from design initiation to approval by 50%", type: "key-result" },
+                                        { name: "Increase architecture design consistency by 80%", type: "key-result" },
+                                        { name: "Reduce costs associated with architectural rework by 40%", type: "key-result" }
                                     ]
                                 },
                                 {
                                     name: "Automate system modeling and documentation",
                                     type: "objective",
                                     children: [
-                                        { name: "Reduce time spent on system modeling by 60%", type: "key-result", relatesTo: "Automation & Efficiency" },
-                                        { name: "Achieve 90% accuracy in AI-generated technical documentation", type: "key-result", relatesTo: "AI-Accelerated Development" },
-                                        { name: "Increase developer satisfaction with documentation processes by 50%", type: "key-result", relatesTo: "Developer Experience" }
+                                        { name: "Reduce time spent on system modeling by 60%", type: "key-result" },
+                                        { name: "Achieve 90% accuracy in AI-generated technical documentation", type: "key-result" },
+                                        { name: "Increase developer satisfaction with documentation processes by 50%", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Observability",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Implement AI-driven predictive monitoring",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Predict 80% of potential system issues before they impact users", type: "key-result" },
+                                        { name: "Reduce false positive alerts by 70%", type: "key-result" },
+                                        { name: "Decrease costs related to system downtime by 50%", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Enhance system observability with AI-assisted insights",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Reduce mean time to resolution (MTTR) by 60% using AI insights", type: "key-result" },
+                                        { name: "Increase accuracy of performance bottleneck identification by 50%", type: "key-result" },
+                                        { name: "Improve developer satisfaction with monitoring tools by 45%", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Infrastructure & Operations",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Automate infrastructure management with AI",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Achieve 95% accuracy in AI-driven resource allocation", type: "key-result" },
+                                        { name: "Reduce infrastructure-related incidents by 80% through predictive AI", type: "key-result" },
+                                        { name: "Decrease infrastructure costs by 30% through AI-optimized resource utilization", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Enhance security posture using AI",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Detect and mitigate 90% of security threats automatically", type: "key-result" },
+                                        { name: "Reduce time to patch critical vulnerabilities by 70%", type: "key-result" },
+                                        { name: "Increase developer confidence in system security by 50%", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "APIs & Integrations",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Accelerate API development with AI assistance",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Reduce API design time by 60% using AI-powered tools", type: "key-result" },
+                                        { name: "Increase API specification accuracy to 95% with AI validation", type: "key-result" },
+                                        { name: "Improve developer satisfaction with API design process by 55%", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Enhance API discoverability and usage with AI",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Increase appropriate API reuse by 100% through AI recommendations", type: "key-result" },
+                                        { name: "Reduce API integration time by 50% with AI-assisted tooling", type: "key-result" },
+                                        { name: "Decrease costs associated with redundant API development by 40%", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Developer Experience (DX)",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Create an AI-enhanced developer portal",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Reduce time to find relevant information by 70% using AI search", type: "key-result" },
+                                        { name: "Increase developer self-service resolution rate to 80% with AI assistance", type: "key-result" },
+                                        { name: "Improve overall developer satisfaction score by 40%", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Accelerate onboarding and learning with AI",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Reduce new developer ramp-up time by 50% with AI-assisted onboarding", type: "key-result" },
+                                        { name: "Increase knowledge retention by 40% using AI-powered adaptive learning", type: "key-result" },
+                                        { name: "Decrease training and onboarding costs by 35% through AI-driven efficiencies", type: "key-result" }
                                     ]
                                 }
                             ]
@@ -217,7 +329,10 @@
                     return d.children || d._children ? "end" : "start";
                 })
                 .text(function(d) { return d.data.name; })
-                .style("fill-opacity", 1e-6)
+                .style("fill-opacity", 1)
+                .style("text-decoration", "underline") // Ensure text is underlined
+                .style("fill", "#4a90e2") // Blue color for text
+                .on('click', showDescription)
                 .call(wrap, 150);
 
             const nodeUpdate = nodeEnter.merge(node);
@@ -344,6 +459,48 @@
                 }
             });
         }
+
+        function showDescription(event, d) {
+            event.stopPropagation();
+            const description = d.data.description || "No description available.";
+            const descriptionDiv = d3.select("#description");
+            descriptionDiv.html(description)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY + 10) + "px")
+                .style("display", "block");
+        }
+
+        d3.select("body").on("click", function() {
+            d3.select("#description").style("display", "none");
+        });
+
+        // Add descriptions to your treeData object
+        function addDescriptions(node) {
+            if (node.type === "north-star") {
+                node.description = "Our main goal: Achieve the ability to take code from commit to production deployment within 24 hours.";
+            } else if (node.type === "strategic-theme") {
+                if (node.name === "Automation & Efficiency") {
+                    node.description = "Automation & Efficiency focuses on streamlining processes to enhance productivity and reduce manual interventions.";
+                } else if (node.name === "Developer Experience") {
+                    node.description = "Developer Experience aims to create seamless and satisfying interactions for developers using our platform.";
+                } else if (node.name === "AI-Accelerated Development") {
+                    node.description = "AI-Accelerated Development leverages artificial intelligence to boost developer productivity and innovation.";
+                }
+                // Add more strategic themes as needed
+            } else if (node.type === "product-group") {
+                node.description = "A specific product area that contributes to our strategic themes.";
+            } else if (node.type === "objective") {
+                node.description = "A specific, measurable goal that supports our strategic themes.";
+            } else if (node.type === "key-result") {
+                node.description = "A quantifiable metric that measures progress towards an objective.";
+            }
+
+            if (node.children) {
+                node.children.forEach(addDescriptions);
+            }
+        }
+
+        addDescriptions(treeData);
     </script>
 </body>
 </html>

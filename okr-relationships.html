@@ -26,7 +26,12 @@
         }
         .node text {
             font: 12px sans-serif;
-            fill: #fff;
+            fill: #4a90e2; /* Blue color for hyperlinks */
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .node text:hover {
+            fill: #2a6496;
         }
         .link {
             fill: none;
@@ -42,11 +47,25 @@
             stroke: #f4a261;
             stroke-width: 3px;
         }
+        .description {
+            position: absolute;
+            background-color: #fff; /* White background for contrast */
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 300px;
+            z-index: 1000;
+            display: none;
+            color: #333; /* Dark text for readability */
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
     <h1>OKR Relationships - Platform to Product Groups</h1>
     <div id="okr-tree"></div>
+    <div id="description" class="description"></div>
     <script>
         const treeData = {
             name: "Platform OKRs",
@@ -260,7 +279,16 @@
                 })
                 .text(function(d) { return d.data.name; })
                 .style("fill-opacity", 1e-6)
-                .call(wrap, 200);
+                .style("text-decoration", "underline") // Ensure text is underlined
+                .style("fill", "#4a90e2") // Blue color for text
+                .on('click', showDescription)
+                // Remove existing mouseover event
+                // .on('mouseover', function() {
+                //     d3.select(this).style("fill", "#2a6496");
+                // })
+                .call(wrap, 200)
+                .transition()
+                .style("fill-opacity", 1);
 
             const nodeUpdate = nodeEnter.merge(node);
 
@@ -364,6 +392,50 @@
                 }
             });
         }
+
+        function showDescription(event, d) {
+            event.stopPropagation();
+            const description = d.data.description || "No description available.";
+            const descriptionDiv = d3.select("#description");
+            descriptionDiv.html(description)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY + 10) + "px")
+                .style("display", "block");
+        }
+
+        d3.select("body").on("click", function() {
+            d3.select("#description").style("display", "none");
+        });
+
+        // Ensure descriptions are properly added
+        function addDescriptions(node) {
+            if (node.type === "platform-okr") {
+                node.description = "Platform OKRs represent the overarching objectives that guide our product groups.";
+            } else if (node.type === "product-group") {
+                if (node.name === "Code & Collaboration") {
+                    node.description = "Code & Collaboration focuses on improving the development workflow and code quality through enhanced tools and processes.";
+                } else if (node.name === "Architecture & Design") {
+                    node.description = "Architecture & Design aims to streamline the system design process using AI to ensure consistency and efficiency.";
+                } else if (node.name === "Observability") {
+                    node.description = "Observability enhances system monitoring and predictive insights to maintain system reliability and performance.";
+                } else if (node.name === "Infrastructure & Operations") {
+                    node.description = "Infrastructure & Operations leverages AI to automate resource management and bolster system security.";
+                } else if (node.name === "APIs & Integrations") {
+                    node.description = "APIs & Integrations accelerates API development and enhances discoverability using AI-assisted tools.";
+                } else if (node.name === "Developer Experience (DX)") {
+                    node.description = "Developer Experience (DX) focuses on creating an AI-enhanced portal and improving onboarding processes.";
+                }
+                // Add more product groups as needed
+            } else if (node.type === "key-result") {
+                node.description = "A quantifiable metric that measures progress towards an objective.";
+            }
+
+            if (node.children) {
+                node.children.forEach(addDescriptions);
+            }
+        }
+
+        addDescriptions(treeData);
     </script>
 </body>
 </html>
