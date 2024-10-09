@@ -3,57 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cascading OKRs</title>
+    <title>AI-Focused Developer Platform Strategy - Cascading OKRs</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #0e4e5c;
-            color: white;
+            background-color: #f0f4f8;
+            color: #333;
         }
         #okr-tree {
             width: 100%;
-            height: 1200px;
+            height: 800px;
             overflow: auto;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
         }
         .node rect {
-            fill: #1a7f8e;
             stroke: #fff;
             stroke-width: 1px;
         }
         .node text {
             font: 12px sans-serif;
-            fill: white;
+            fill: #fff;
         }
         .link {
             fill: none;
-            stroke: #f4a261;
-            stroke-width: 2px;
+            stroke: #ccc;
+            stroke-width: 1px;
         }
         #error-message {
             color: #ff6b6b;
             font-weight: bold;
         }
-        .platform-okr rect {
-            fill: #2a9d8f;
-        }
-        .product-group rect {
-            fill: #e9c46a;
-        }
-        .objective rect {
-            fill: #f4a261;
-        }
-        .key-result rect {
-            fill: #e76f51;
+        .platform-okr rect { fill: #2c3e50; }
+        .strategic-theme rect { fill: #3498db; }
+        .product-group rect { fill: #2ecc71; }
+        .objective rect { fill: #e67e22; }
+        .key-result rect { fill: #e74c3c; }
+        .explanation {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
-    <h1>Cascading OKRs</h1>
+    <h1>AI-Focused Developer Platform Strategy - Cascading OKRs</h1>
     <div id="error-message"></div>
     <div id="okr-tree"></div>
+    <div class="explanation">
+        <h2>Relationship between Platform OKRs and Product Group OKRs</h2>
+        <p>The platform OKRs and product group OKRs are designed to work together in a hierarchical structure to achieve the overall goal of "Production in a Day" while leveraging AI to accelerate development, enhance developer happiness, and avoid costs. Here's how they relate:</p>
+        <ol>
+            <li><strong>Alignment:</strong> Each product group's objectives and key results are directly aligned with one or more platform-level strategic themes, with a strong emphasis on AI-Accelerated Development, Developer Experience, and Automation & Efficiency.</li>
+            <li><strong>Cascading Effect:</strong> The platform OKRs set the overall direction and high-level targets for AI integration, developer satisfaction, and cost reduction. Product group OKRs then break these down into more specific, actionable objectives and measurable results that contribute to the platform-level goals.</li>
+            <li><strong>Contribution to North Star:</strong> While product groups focus on their specific areas of AI implementation, their collective achievements drive progress towards the North Star metric of "Production in a Day" by enhancing efficiency, improving developer experience, and reducing costs.</li>
+            <li><strong>Complementary Focus:</strong> Different product groups approach the AI-Accelerated Development theme from various angles, each applying AI to their specific domain to boost overall platform capabilities while contributing to developer happiness and cost avoidance.</li>
+            <li><strong>Balanced Approach:</strong> By having multiple product groups aligned with each platform theme, we ensure a comprehensive approach to achieving our goals, addressing various aspects of the development lifecycle with AI enhancements that improve both developer experience and operational efficiency.</li>
+            <li><strong>Measurability:</strong> Platform-level key results represent aggregate improvements in AI adoption, developer happiness, and cost avoidance, while product group key results are more specific to AI implementations in their respective areas, all contributing to these overarching metrics.</li>
+            <li><strong>Flexibility:</strong> This structure allows for adjustments in AI implementation strategies at the product group level without necessarily changing the platform-level strategy, providing both stability and adaptability in our AI acceleration efforts while maintaining focus on developer satisfaction and cost efficiency.</li>
+        </ol>
+    </div>
     <script>
         console.log('Script started');
         if (typeof d3 === 'undefined') {
@@ -63,81 +76,113 @@
             console.log('D3 is loaded');
             try {
                 const treeData = {
-                    name: "Platform OKRs",
+                    name: "AI-Focused Developer Platform Strategy",
                     type: "platform-okr",
                     children: [
                         {
-                            name: "Production in a Day",
-                            type: "objective",
+                            name: "North Star: Production in a Day",
+                            type: "strategic-theme",
                             children: [
                                 {
-                                    name: "Achieve 70% reduction in average time from commit to production",
-                                    type: "key-result"
+                                    name: "Automation & Efficiency",
+                                    type: "strategic-theme",
+                                    children: [
+                                        {
+                                            name: "Streamline the entire development lifecycle",
+                                            type: "objective",
+                                            children: [
+                                                { name: "Achieve 70% reduction in average time from commit to production", type: "key-result" },
+                                                { name: "Double the percentage of deployments completed within 24 hours", type: "key-result" },
+                                                { name: "Eliminate 90% of manual interventions in the deployment process", type: "key-result" }
+                                            ]
+                                        }
+                                    ]
                                 },
                                 {
-                                    name: "Double the percentage of deployments completed within 24 hours",
-                                    type: "key-result"
-                                }
-                            ]
-                        },
-                        {
-                            name: "Code & Collaboration",
-                            type: "product-group",
-                            children: [
-                                {
-                                    name: "Accelerate code-to-review process",
-                                    type: "objective",
+                                    name: "Developer Experience",
+                                    type: "strategic-theme",
                                     children: [
                                         {
-                                            name: "Cut time from commit to passing all checks by 50%",
-                                            type: "key-result"
-                                        },
+                                            name: "Create a seamless and satisfying developer journey",
+                                            type: "objective",
+                                            children: [
+                                                { name: "Attain top quartile developer satisfaction scores in industry benchmarks", type: "key-result" },
+                                                { name: "Halve the time developers spend on context switching", type: "key-result" },
+                                                { name: "Achieve full platform adoption across all development teams", type: "key-result" }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: "AI-Accelerated Development",
+                                    type: "strategic-theme",
+                                    children: [
                                         {
-                                            name: "Reduce average code review time by 40%",
-                                            type: "key-result"
+                                            name: "Enhance developer productivity and satisfaction through AI-powered tools while reducing costs",
+                                            type: "objective",
+                                            children: [
+                                                { name: "Increase developer happiness score by 30% through AI assistance", type: "key-result" },
+                                                { name: "Achieve 80% adoption rate of AI-powered features across the platform", type: "key-result" },
+                                                { name: "Reduce development costs by 25% through AI-driven efficiencies", type: "key-result" }
+                                            ]
                                         }
                                     ]
                                 }
                             ]
                         },
                         {
-                            name: "Architecture & Design",
+                            name: "Product Groups",
                             type: "product-group",
                             children: [
                                 {
-                                    name: "Streamline architecture design process",
-                                    type: "objective",
+                                    name: "Code & Collaboration",
+                                    type: "product-group",
                                     children: [
                                         {
-                                            name: "Decrease time from design initiation to approval by 40%",
-                                            type: "key-result"
+                                            name: "Accelerate the code-to-review process while maintaining quality",
+                                            type: "objective",
+                                            children: [
+                                                { name: "Cut time from commit to passing all checks by 50%", type: "key-result" },
+                                                { name: "Reduce average code review time by 40%", type: "key-result" },
+                                                { name: "Boost first-time approval rate in code reviews by 30%", type: "key-result" }
+                                            ]
                                         },
                                         {
-                                            name: "Reduce time spent on repetitive design tasks by 70%",
-                                            type: "key-result"
+                                            name: "Enhance developer productivity with AI-assisted coding",
+                                            type: "objective",
+                                            children: [
+                                                { name: "Increase code completion accuracy by 50% using AI suggestions", type: "key-result" },
+                                                { name: "Reduce time spent on boilerplate code by 70%", type: "key-result" },
+                                                { name: "Improve developer satisfaction with coding tools by 40%", type: "key-result" }
+                                            ]
                                         }
                                     ]
-                                }
-                            ]
-                        },
-                        {
-                            name: "APIs & Integrations",
-                            type: "product-group",
-                            children: [
+                                },
                                 {
-                                    name: "Accelerate API development",
-                                    type: "objective",
+                                    name: "Architecture & Design",
+                                    type: "product-group",
                                     children: [
                                         {
-                                            name: "Halve the time from API design to first consumer integration",
-                                            type: "key-result"
+                                            name: "Streamline the architecture design process using AI",
+                                            type: "objective",
+                                            children: [
+                                                { name: "Decrease time from design initiation to approval by 50%", type: "key-result" },
+                                                { name: "Increase architecture design consistency by 80%", type: "key-result" },
+                                                { name: "Reduce costs associated with architectural rework by 40%", type: "key-result" }
+                                            ]
                                         },
                                         {
-                                            name: "Reduce API-related integration issues by 75%",
-                                            type: "key-result"
+                                            name: "Automate system modeling and documentation",
+                                            type: "objective",
+                                            children: [
+                                                { name: "Reduce time spent on system modeling by 60%", type: "key-result" },
+                                                { name: "Achieve 90% accuracy in AI-generated technical documentation", type: "key-result" },
+                                                { name: "Increase developer satisfaction with documentation processes by 50%", type: "key-result" }
+                                            ]
                                         }
                                     ]
-                                }
+                                },
+                                // Add other product groups here...
                             ]
                         }
                     ]
@@ -145,9 +190,9 @@
 
                 console.log('Tree data:', treeData);
 
-                const margin = {top: 40, right: 120, bottom: 20, left: 120};
-                const width = 1800 - margin.left - margin.right;
-                const height = 1000 - margin.top - margin.bottom;
+                const margin = {top: 20, right: 120, bottom: 20, left: 120};
+                const width = 1600 - margin.left - margin.right;
+                const height = 800 - margin.top - margin.bottom;
 
                 const svg = d3.select("#okr-tree").append("svg")
                     .attr("width", width + margin.right + margin.left)
@@ -160,12 +205,12 @@
                 let i = 0;
                 const duration = 750;
                 const root = d3.hierarchy(treeData, function(d) { return d.children; });
-                root.x0 = 0;
+                root.x0 = height / 2;
                 root.y0 = 0;
 
                 console.log('Root:', root);
 
-                const treemap = d3.tree().size([width, height]);
+                const treemap = d3.tree().size([height, width]);
 
                 update(root);
 
@@ -183,7 +228,7 @@
                     const nodeEnter = node.enter().append('g')
                         .attr('class', function(d) { return 'node ' + d.data.type; })
                         .attr("transform", function(d) {
-                            return "translate(" + source.x0 + "," + source.y0 + ")";
+                            return "translate(" + source.y0 + "," + source.x0 + ")";
                         })
                         .on('click', click);
 
@@ -195,7 +240,12 @@
 
                     nodeEnter.append('text')
                         .attr("dy", ".35em")
-                        .attr("x", 13)
+                        .attr("x", function(d) {
+                            return d.children || d._children ? -13 : 13;
+                        })
+                        .attr("text-anchor", function(d) {
+                            return d.children || d._children ? "end" : "start";
+                        })
                         .text(function(d) { return d.data.name; })
                         .style("fill-opacity", 1e-6)
                         .call(wrap, 150);
@@ -205,13 +255,13 @@
                     nodeUpdate.transition()
                         .duration(duration)
                         .attr("transform", function(d) { 
-                            return "translate(" + d.x + "," + d.y + ")";
+                            return "translate(" + d.y + "," + d.x + ")";
                         });
 
                     nodeUpdate.select('rect')
                         .attr('width', d => d.data.name.length * 7)
                         .attr('height', 30)
-                        .attr('x', -5)
+                        .attr('x', d => d.children || d._children ? -d.data.name.length * 7 - 10 : 10)
                         .attr('y', -15);
 
                     nodeUpdate.select('text')
@@ -220,7 +270,7 @@
                     const nodeExit = node.exit().transition()
                         .duration(duration)
                         .attr("transform", function(d) {
-                            return "translate(" + source.x + "," + source.y + ")";
+                            return "translate(" + source.y + "," + source.x + ")";
                         })
                         .remove();
 
@@ -261,10 +311,10 @@
                     });
 
                     function diagonal(s, d) {
-                        return `M ${s.x} ${s.y}
-                                C ${s.x} ${(s.y + d.y) / 2},
-                                  ${d.x} ${(s.y + d.y) / 2},
-                                  ${d.x} ${d.y}`;
+                        return `M ${s.y} ${s.x}
+                                C ${(s.y + d.y) / 2} ${s.x},
+                                  ${(s.y + d.y) / 2} ${d.x},
+                                  ${d.y} ${d.x}`;
                     }
 
                     function click(event, d) {
@@ -289,7 +339,9 @@
                             lineHeight = 1.1, // ems
                             y = text.attr("y"),
                             dy = parseFloat(text.attr("dy")),
-                            tspan = text.text(null).append("tspan").attr("x", 13).attr("y", y).attr("dy", dy + "em");
+                            tspan = text.text(null).append("tspan").attr("x", function(d) {
+                                return d.children || d._children ? -13 : 13;
+                            }).attr("y", y).attr("dy", dy + "em");
                         while (word = words.pop()) {
                             line.push(word);
                             tspan.text(line.join(" "));
@@ -297,7 +349,9 @@
                                 line.pop();
                                 tspan.text(line.join(" "));
                                 line = [word];
-                                tspan = text.append("tspan").attr("x", 13).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                                tspan = text.append("tspan").attr("x", function(d) {
+                                    return d.children || d._children ? -13 : 13;
+                                }).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
                             }
                         }
                     });
