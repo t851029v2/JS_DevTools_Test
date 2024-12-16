@@ -118,225 +118,271 @@
         }
 
         const data = {
-            name: "Platform: Production in a Day",
+            name: "Unicorn Dev Tools",
             type: "platform-node",
-            description: "North Star: Enable developers to build and ship software within 24 hours",
+            description: "Developer Tools Platform",
             children: [
                 {
-                    name: "Engineering Excellence Guardrails",
-                    type: "guardrail",
-                    description: "Core metrics that all product groups must maintain",
+                    name: "Platform",
+                    type: "platform-node",
+                    description: "Platform Level Goals and Metrics",
                     children: [
                         {
-                            name: "MTTR < 30 minutes",
-                            type: "key-result",
-                            description: "Platform-level MTTR target"
-                        },
-                        {
-                            name: "99.9% deployment success rate",
-                            type: "key-result",
-                            description: "Platform-level deployment success target"
-                        },
-                        {
-                            name: "Zero critical security findings",
-                            type: "key-result",
-                            description: "Platform-level security target"
-                        }
-                    ]
-                },
-                {
-                    name: "Developer Happiness",
-                    type: "strategic-theme",
-                    description: "Create a frictionless development experience",
-                    children: [
-                        {
-                            name: "Top quartile developer satisfaction",
-                            type: "key-result",
-                            description: "Platform KR1 for Developer Happiness"
-                        },
-                        {
-                            name: "50% reduction in context switching",
-                            type: "key-result",
-                            description: "Platform KR2 for Developer Happiness"
-                        },
-                        {
-                            name: "90% platform adoption",
-                            type: "key-result",
-                            description: "Platform KR3 for Developer Happiness"
-                        }
-                    ]
-                },
-                {
-                    name: "Code & Collaboration",
-                    type: "product-group",
-                    description: "Mission: To provide developers with best-in-class tools and practices for writing, reviewing, and deploying code",
-                    children: [
-                        {
-                            name: "Engineering Excellence Commitments",
+                            name: "Engineering Excellence",
                             type: "guardrail",
-                            description: "Product group guardrail commitments",
+                            description: "Core metrics that all product groups must maintain",
                             children: [
                                 {
-                                    name: "Build pipeline MTTR < 15 minutes",
+                                    name: "MTTR < 30 minutes",
                                     type: "key-result",
-                                    description: "Contributes to platform MTTR target",
-                                    contributes_to: "MTTR < 30 minutes"
+                                    description: "Platform-level MTTR target"
                                 },
                                 {
-                                    name: "Code pipeline success rate > 99.9%",
+                                    name: "99.9% deployment success rate",
                                     type: "key-result",
-                                    description: "Contributes to platform deployment success rate",
-                                    contributes_to: "99.9% deployment success rate"
+                                    description: "Platform-level deployment success target"
+                                },
+                                {
+                                    name: "Zero critical security findings",
+                                    type: "key-result",
+                                    description: "Platform-level security target"
                                 }
                             ]
                         },
                         {
-                            name: "Developer Happiness Focus",
+                            name: "Developer Happiness",
                             type: "strategic-theme",
-                            description: "Product group strategic focus",
+                            description: "Create a frictionless development experience",
                             children: [
                                 {
-                                    name: "70% reduction in review time",
+                                    name: "Top quartile developer satisfaction",
                                     type: "key-result",
-                                    description: "Contributes to context switching reduction",
-                                    contributes_to: "50% reduction in context switching"
+                                    description: "Platform KR1 for Developer Happiness"
                                 },
                                 {
-                                    name: "95% satisfaction score",
+                                    name: "50% reduction in context switching",
                                     type: "key-result",
-                                    description: "Contributes to developer satisfaction",
-                                    contributes_to: "Top quartile developer satisfaction"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    name: "Architecture & Design",
-                    type: "product-group",
-                    description: "Mission: To enable teams to design and build well-architected, scalable, and maintainable systems with confidence",
-                    children: [
-                        {
-                            name: "Engineering Excellence Commitments",
-                            type: "guardrail",
-                            description: "Product group guardrail commitments",
-                            children: [
-                                {
-                                    name: "Architecture review completion < 3 days",
-                                    type: "key-result",
-                                    description: "Architecture review speed target"
+                                    description: "Platform KR2 for Developer Happiness"
                                 },
                                 {
-                                    name: "100% compliance with security standards",
+                                    name: "90% platform adoption",
                                     type: "key-result",
-                                    description: "Contributes to platform security target",
-                                    contributes_to: "Zero critical security findings"
+                                    description: "Platform KR3 for Developer Happiness"
                                 }
                             ]
                         },
                         {
-                            name: "AI-Powered Platform Focus",
-                            type: "strategic-theme",
-                            description: "Accelerate architecture design through AI assistance",
+                            name: "Code & Collaboration",
+                            type: "product-group",
+                            description: "Mission: To provide developers with best-in-class tools and practices for writing, reviewing, and deploying code",
                             children: [
                                 {
-                                    name: "60% reduction in architecture review cycles",
-                                    type: "key-result",
-                                    description: "Contributes to context switching reduction",
-                                    contributes_to: "50% reduction in context switching"
+                                    name: "Engineering Excellence",
+                                    type: "guardrail",
+                                    description: "Product group guardrail commitments",
+                                    children: [
+                                        {
+                                            name: "Build pipeline MTTR < 15 minutes",
+                                            type: "key-result",
+                                            description: "Contributes to platform MTTR target",
+                                            contributes_to: "MTTR < 30 minutes"
+                                        },
+                                        {
+                                            name: "Code pipeline success rate > 99.9%",
+                                            type: "key-result",
+                                            description: "Contributes to platform deployment success rate",
+                                            contributes_to: "99.9% deployment success rate"
+                                        }
+                                    ]
                                 },
                                 {
-                                    name: "80% of teams using AI-powered design tools",
-                                    type: "key-result",
-                                    description: "Contributes to platform adoption",
-                                    contributes_to: "90% platform adoption"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    name: "Observability",
-                    type: "product-group",
-                    description: "Mission: To provide comprehensive visibility into system health and empower teams to maintain high-quality, reliable services",
-                    children: [
-                        {
-                            name: "Engineering Excellence Commitments",
-                            type: "guardrail",
-                            description: "Product group guardrail commitments",
-                            children: [
-                                {
-                                    name: "Alert noise ratio < 5%",
-                                    type: "key-result",
-                                    description: "Alert quality target"
-                                },
-                                {
-                                    name: "100% service coverage for core metrics",
-                                    type: "key-result",
-                                    description: "Monitoring coverage target"
-                                }
-                            ]
-                        },
-                        {
-                            name: "Developer Happiness Focus",
-                            type: "strategic-theme",
-                            description: "Simplify system monitoring and troubleshooting",
-                            children: [
-                                {
-                                    name: "65% reduction in time to identify issues",
-                                    type: "key-result",
-                                    description: "Contributes to context switching reduction",
-                                    contributes_to: "50% reduction in context switching"
-                                },
-                                {
-                                    name: "90% developer satisfaction with observability tools",
-                                    type: "key-result",
-                                    description: "Contributes to developer satisfaction",
-                                    contributes_to: "Top quartile developer satisfaction"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    name: "Developer Portal",
-                    type: "product-group",
-                    description: "Mission: To create an intuitive, efficient, and enjoyable development environment that accelerates developer productivity",
-                    children: [
-                        {
-                            name: "Engineering Excellence Commitments",
-                            type: "guardrail",
-                            description: "Product group guardrail commitments",
-                            children: [
-                                {
-                                    name: "Documentation freshness < 30 days",
-                                    type: "key-result",
-                                    description: "Documentation quality target"
-                                },
-                                {
-                                    name: "99% platform tool availability",
-                                    type: "key-result",
-                                    description: "Contributes to platform deployment success rate",
-                                    contributes_to: "99.9% deployment success rate"
+                                    name: "Developer Happiness",
+                                    type: "strategic-theme",
+                                    description: "Product group strategic focus",
+                                    children: [
+                                        {
+                                            name: "70% reduction in review time",
+                                            type: "key-result",
+                                            description: "Contributes to context switching reduction",
+                                            contributes_to: "50% reduction in context switching"
+                                        },
+                                        {
+                                            name: "95% satisfaction score",
+                                            type: "key-result",
+                                            description: "Contributes to developer satisfaction",
+                                            contributes_to: "Top quartile developer satisfaction"
+                                        }
+                                    ]
                                 }
                             ]
                         },
                         {
-                            name: "AI-Powered Platform Focus",
-                            type: "strategic-theme",
-                            description: "Create AI-enhanced developer tooling and support",
+                            name: "Architecture & Design",
+                            type: "product-group",
+                            description: "Mission: To enable teams to design and build well-architected, scalable, and maintainable systems with confidence",
                             children: [
                                 {
-                                    name: "70% reduction in time to find information",
-                                    type: "key-result",
-                                    description: "Contributes to context switching reduction",
-                                    contributes_to: "50% reduction in context switching"
+                                    name: "Engineering Excellence",
+                                    type: "guardrail",
+                                    description: "Product group guardrail commitments",
+                                    children: [
+                                        {
+                                            name: "Architecture review completion < 3 days",
+                                            type: "key-result",
+                                            description: "Architecture review speed target"
+                                        },
+                                        {
+                                            name: "100% compliance with security standards",
+                                            type: "key-result",
+                                            description: "Contributes to platform security target",
+                                            contributes_to: "Zero critical security findings"
+                                        }
+                                    ]
                                 },
                                 {
-                                    name: "80% self-service resolution rate",
-                                    type: "key-result",
-                                    description: "Contributes to developer satisfaction",
-                                    contributes_to: "Top quartile developer satisfaction"
+                                    name: "AI-Powered Platform",
+                                    type: "strategic-theme",
+                                    description: "Accelerate architecture design through AI assistance",
+                                    children: [
+                                        {
+                                            name: "60% reduction in architecture review cycles",
+                                            type: "key-result",
+                                            description: "Contributes to context switching reduction",
+                                            contributes_to: "50% reduction in context switching"
+                                        },
+                                        {
+                                            name: "80% of teams using AI-powered design tools",
+                                            type: "key-result",
+                                            description: "Contributes to platform adoption",
+                                            contributes_to: "90% platform adoption"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Observability",
+                            type: "product-group",
+                            description: "Mission: To provide comprehensive visibility into system health and empower teams to maintain high-quality, reliable services",
+                            children: [
+                                {
+                                    name: "Engineering Excellence",
+                                    type: "guardrail",
+                                    description: "Product group guardrail commitments",
+                                    children: [
+                                        {
+                                            name: "Alert noise ratio < 5%",
+                                            type: "key-result",
+                                            description: "Alert quality target"
+                                        },
+                                        {
+                                            name: "100% service coverage for core metrics",
+                                            type: "key-result",
+                                            description: "Monitoring coverage target"
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: "Developer Happiness",
+                                    type: "strategic-theme",
+                                    description: "Simplify system monitoring and troubleshooting",
+                                    children: [
+                                        {
+                                            name: "65% reduction in time to identify issues",
+                                            type: "key-result",
+                                            description: "Contributes to context switching reduction",
+                                            contributes_to: "50% reduction in context switching"
+                                        },
+                                        {
+                                            name: "90% developer satisfaction with observability tools",
+                                            type: "key-result",
+                                            description: "Contributes to developer satisfaction",
+                                            contributes_to: "Top quartile developer satisfaction"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "APIs & Integrations",
+                            type: "product-group",
+                            description: "Mission: To enable seamless integration and communication between services through reliable, well-documented, and developer-friendly APIs",
+                            children: [
+                                {
+                                    name: "Engineering Excellence",
+                                    type: "guardrail",
+                                    description: "Product group guardrail commitments",
+                                    children: [
+                                        {
+                                            name: "API availability > 99.9%",
+                                            type: "key-result",
+                                            description: "Contributes to platform deployment success rate",
+                                            contributes_to: "99.9% deployment success rate"
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: "Developer Happiness",
+                                    type: "strategic-theme",
+                                    description: "Enhance API discovery and implementation experience",
+                                    children: [
+                                        {
+                                            name: "80% of APIs self-discoverable",
+                                            type: "key-result",
+                                            description: "Contributes to developer satisfaction",
+                                            contributes_to: "Top quartile developer satisfaction"
+                                        },
+                                        {
+                                            name: "60% reduction in API integration time",
+                                            type: "key-result",
+                                            description: "Contributes to context switching reduction",
+                                            contributes_to: "50% reduction in context switching"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Developer Portal",
+                            type: "product-group",
+                            description: "Mission: To create an intuitive, efficient, and enjoyable development environment that accelerates developer productivity",
+                            children: [
+                                {
+                                    name: "Engineering Excellence",
+                                    type: "guardrail",
+                                    description: "Product group guardrail commitments",
+                                    children: [
+                                        {
+                                            name: "Documentation freshness < 30 days",
+                                            type: "key-result",
+                                            description: "Documentation quality target"
+                                        },
+                                        {
+                                            name: "99% platform tool availability",
+                                            type: "key-result",
+                                            description: "Contributes to platform deployment success rate",
+                                            contributes_to: "99.9% deployment success rate"
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: "AI-Powered Platform",
+                                    type: "strategic-theme",
+                                    description: "Create AI-enhanced developer tooling and support",
+                                    children: [
+                                        {
+                                            name: "70% reduction in time to find information",
+                                            type: "key-result",
+                                            description: "Contributes to context switching reduction",
+                                            contributes_to: "50% reduction in context switching"
+                                        },
+                                        {
+                                            name: "80% self-service resolution rate",
+                                            type: "key-result",
+                                            description: "Contributes to developer satisfaction",
+                                            contributes_to: "Top quartile developer satisfaction"
+                                        }
+                                    ]
                                 }
                             ]
                         }
