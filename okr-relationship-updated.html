@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Strategy Mind Map</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        #mindmap {
+            width: 100%;
+            height: 1200px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .node circle {
+            stroke-width: 2px;
+        }
+        
+        .node text {
+            font: 12px sans-serif;
+            fill: #333;
+        }
+        
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
+        }
+
+        .contribution-link {
+            fill: none;
+            stroke: #f4a261;
+            stroke-width: 2px;
+            stroke-dasharray: 5,5;
+        }
+        
+        .platform-node circle { 
+            fill: #2a9d8f;
+            stroke: #264653;
+        }
+        
+        .guardrail circle {
+            fill: #e9c46a;
+            stroke: #264653;
+        }
+        
+        .strategic-theme circle {
+            fill: #f4a261;
+            stroke: #264653;
+        }
+        
+        .product-group circle {
+            fill: #e76f51;
+            stroke: #264653;
+        }
+        
+        .key-result circle {
+            fill: #264653;
+            stroke: #2a9d8f;
+        }
+
+        .node circle.collapsed {
+            fill: #555;
+        }
+
+        .node circle.expandable {
+            cursor: pointer;
+        }
+
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            pointer-events: none;
+            font-size: 12px;
+            max-width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .node-indicator {
+            font-family: monospace;
+            font-size: 12px;
+            fill: #666;
+        }
+
+        .error-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="error-container" class="error-message"></div>
+    <div id="mindmap"></div>
+    <script>
+        // Initialize error handling
+        function showError(message) {
+            const errorContainer = document.getElementById('error-container');
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+
+        const data = {
+            name: "Platform: Production in a Day",
+            type: "platform-node",
+            description: "North Star: Enable developers to build and ship software within 24 hours",
+            children: [
+                {
+                    name: "Engineering Excellence Guardrails",
+                    type: "guardrail",
+                    description: "Core metrics that all product groups must maintain",
+                    children: [
+                        {
+                            name: "MTTR < 30 minutes",
+                            type: "key-result",
+                            description: "Platform-level MTTR target"
+                        },
+                        {
+                            name: "99.9% deployment success rate",
+                            type: "key-result",
+                            description: "Platform-level deployment success target"
+                        },
+                        {
+                            name: "Zero critical security findings",
+                            type: "key-result",
+                            description: "Platform-level security target"
+                        }
+                    ]
+                },
+                {
+                    name: "Developer Happiness",
+                    type: "strategic-theme",
+                    description: "Create a frictionless development experience",
+                    children: [
+                        {
+                            name: "Top quartile developer satisfaction",
+                            type: "key-result",
+                            description: "Platform KR1 for Developer Happiness"
+                        },
+                        {
+                            name: "50% reduction in context switching",
+                            type: "key-result",
+                            description: "Platform KR2 for Developer Happiness"
+                        },
+                        {
+                            name: "90% platform adoption",
+                            type: "key-result",
+                            description: "Platform KR3 for Developer Happiness"
+                        }
+                    ]
+                },
+                {
+                    name: "Code & Collaboration",
+                    type: "product-group",
+                    description: "Mission: To provide developers with best-in-class tools and practices for writing, reviewing, and deploying code",
+                    children: [
+                        {
+                            name: "Engineering Excellence Commitments",
+                            type: "guardrail",
+                            description: "Product group guardrail commitments",
+                            children: [
+                                {
+                                    name: "Build pipeline MTTR < 15 minutes",
+                                    type: "key-result",
+                                    description: "Contributes to platform MTTR target",
+                                    contributes_to: "MTTR < 30 minutes"
+                                },
+                                {
+                                    name: "Code pipeline success rate > 99.9%",
+                                    type: "key-result",
+                                    description: "Contributes to platform deployment success rate",
+                                    contributes_to: "99.9% deployment success rate"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Developer Happiness Focus",
+                            type: "strategic-theme",
+                            description: "Product group strategic focus",
+                            children: [
+                                {
+                                    name: "70% reduction in review time",
+                                    type: "key-result",
+                                    description: "Contributes to context switching reduction",
+                                    contributes_to: "50% reduction in context switching"
+                                },
+                                {
+                                    name: "95% satisfaction score",
+                                    type: "key-result",
+                                    description: "Contributes to developer satisfaction",
+                                    contributes_to: "Top quartile developer satisfaction"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Architecture & Design",
+                    type: "product-group",
+                    description: "Mission: To enable teams to design and build well-architected, scalable, and maintainable systems with confidence",
+                    children: [
+                        {
+                            name: "Engineering Excellence Commitments",
+                            type: "guardrail",
+                            description: "Product group guardrail commitments",
+                            children: [
+                                {
+                                    name: "Architecture review completion < 3 days",
+                                    type: "key-result",
+                                    description: "Architecture review speed target"
+                                },
+                                {
+                                    name: "100% compliance with security standards",
+                                    type: "key-result",
+                                    description: "Contributes to platform security target",
+                                    contributes_to: "Zero critical security findings"
+                                }
+                            ]
+                        },
+                        {
+                            name: "AI-Powered Platform Focus",
+                            type: "strategic-theme",
+                            description: "Accelerate architecture design through AI assistance",
+                            children: [
+                                {
+                                    name: "60% reduction in architecture review cycles",
+                                    type: "key-result",
+                                    description: "Contributes to context switching reduction",
+                                    contributes_to: "50% reduction in context switching"
+                                },
+                                {
+                                    name: "80% of teams using AI-powered design tools",
+                                    type: "key-result",
+                                    description: "Contributes to platform adoption",
+                                    contributes_to: "90% platform adoption"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Observability",
+                    type: "product-group",
+                    description: "Mission: To provide comprehensive visibility into system health and empower teams to maintain high-quality, reliable services",
+                    children: [
+                        {
+                            name: "Engineering Excellence Commitments",
+                            type: "guardrail",
+                            description: "Product group guardrail commitments",
+                            children: [
+                                {
+                                    name: "Alert noise ratio < 5%",
+                                    type: "key-result",
+                                    description: "Alert quality target"
+                                },
+                                {
+                                    name: "100% service coverage for core metrics",
+                                    type: "key-result",
+                                    description: "Monitoring coverage target"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Developer Happiness Focus",
+                            type: "strategic-theme",
+                            description: "Simplify system monitoring and troubleshooting",
+                            children: [
+                                {
+                                    name: "65% reduction in time to identify issues",
+                                    type: "key-result",
+                                    description: "Contributes to context switching reduction",
+                                    contributes_to: "50% reduction in context switching"
+                                },
+                                {
+                                    name: "90% developer satisfaction with observability tools",
+                                    type: "key-result",
+                                    description: "Contributes to developer satisfaction",
+                                    contributes_to: "Top quartile developer satisfaction"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Developer Portal",
+                    type: "product-group",
+                    description: "Mission: To create an intuitive, efficient, and enjoyable development environment that accelerates developer productivity",
+                    children: [
+                        {
+                            name: "Engineering Excellence Commitments",
+                            type: "guardrail",
+                            description: "Product group guardrail commitments",
+                            children: [
+                                {
+                                    name: "Documentation freshness < 30 days",
+                                    type: "key-result",
+                                    description: "Documentation quality target"
+                                },
+                                {
+                                    name: "99% platform tool availability",
+                                    type: "key-result",
+                                    description: "Contributes to platform deployment success rate",
+                                    contributes_to: "99.9% deployment success rate"
+                                }
+                            ]
+                        },
+                        {
+                            name: "AI-Powered Platform Focus",
+                            type: "strategic-theme",
+                            description: "Create AI-enhanced developer tooling and support",
+                            children: [
+                                {
+                                    name: "70% reduction in time to find information",
+                                    type: "key-result",
+                                    description: "Contributes to context switching reduction",
+                                    contributes_to: "50% reduction in context switching"
+                                },
+                                {
+                                    name: "80% self-service resolution rate",
+                                    type: "key-result",
+                                    description: "Contributes to developer satisfaction",
+                                    contributes_to: "Top quartile developer satisfaction"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        try {
+            const margin = {top: 20, right: 120, bottom: 20, left: 120};
+            const width = 2000 - margin.right - margin.left;
+            const height = 1000 - margin.top - margin.bottom;
+
+            const svg = d3.select("#mindmap")
+                .append("svg")
+                .attr("width", width + margin.right + margin.left)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            const tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+
+            let i = 0;
+            const duration = 750;
+            const root = d3.hierarchy(data);
+
+            // Initialize the display state
+            root.x0 = height / 2;
+            root.y0 = 0;
+
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
+
+            function expand(d) {
+                if (d._children) {
+                    d.children = d._children;
+                    d._children = null;
+                }
+            }
+
+            function click(event, d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                update(d);
+            }
+
+            const treemap = d3.tree().size([height, width]);
+
+            // Only collapse children if they exist
+            if (root.children) {
+                root.children.forEach(collapse);
+            }
+
+            update(root);
+
+            function update(source) {
+                // Compute the new tree layout
+                const treeData = treemap(root);
+                const nodes = treeData.descendants();
+                const links = treeData.descendants().slice(1);
+
+                // Normalize for fixed-depth
+                nodes.forEach(d => { d.y = d.depth * 250 });
+
+                // Update the nodes
+                const node = svg.selectAll('g.node')
+                    .data(nodes, d => d.id || (d.id = ++i));
+
+                // Enter any new nodes at the parent's previous position
+                const nodeEnter = node.enter().append('g')
+                    .attr('class', d => `node ${d.data.type}`)
+                    .attr("transform", d => `translate(${source.y0},${source.x0})`);
+
+                // Add Circle for the nodes
+                nodeEnter.append('circle')
+                    .attr('r', 1e-6)
+                    .attr('class', d => d.children || d._children ? 'expandable' : '')
+                    .classed('collapsed', d => !d.children && d._children)
+                    .on('click', click)
+                    .on('mouseover', function(event, d) {
+                        tooltip.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                        tooltip.html(d.data.description +
+                            (d.children || d._children ? '<br><br>Click to expand/collapse' : ''))
+                            .style("left", (event.pageX + 10) + "px")
+                            .style("top", (event.pageY - 28) + "px");
+                    })
+                    .on('mouseout', function() {
+                        tooltip.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                    });
+
+                // Add labels for the nodes
+                nodeEnter.append('text')
+                    .attr("dy", ".35em")
+                    .attr("x", d => d.children || d._children ? -13 : 13)
+                    .attr("text-anchor", d => d.children || d._children ? "end" : "start")
+                    .text(d => d.data.name)
+                    .style("fill-opacity", 0);
+
+                // Add expand/collapse indicators
+                nodeEnter.append('text')
+                    .attr('class', 'node-indicator')
+                    .attr("dy", "0.35em")
+                    .attr("x", d => d.children || d._children ? -30 : 30)
+                    .attr("text-anchor", "middle")
+                    .text(d => d.children ? '−' : d._children ? '+' : '')
+                    .style("fill-opacity", 0);
+
+                // UPDATE
+                const nodeUpdate = nodeEnter.merge(node);
+
+                // Transition to the proper position for the nodes
+                nodeUpdate.transition()
+                    .duration(duration)
+                    .attr("transform", d => `translate(${d.y},${d.x})`);
+
+                // Update the node attributes and style
+                nodeUpdate.select('circle')
+                    .attr('r', 10)
+                    .classed('collapsed', d => !d.children && d._children);
+
+                nodeUpdate.select('text')
+                    .style("fill-opacity", 1);
+
+                nodeUpdate.select('.node-indicator')
+                    .style("fill-opacity", 1)
+                    .text(d => d.children ? '−' : d._children ? '+' : '');
+
+                // Remove any exiting nodes
+                const nodeExit = node.exit().transition()
+                    .duration(duration)
+                    .attr("transform", d => `translate(${source.y},${source.x})`)
+                    .remove();
+
+                nodeExit.select('circle')
+                    .attr('r', 1e-6);
+
+                nodeExit.select('text')
+                    .style('fill-opacity', 1e-6);
+
+                // Update the links
+                const link = svg.selectAll('path.link')
+                    .data(links, d => d.id);
+
+                // Enter any new links at the parent's previous position
+                const linkEnter = link.enter().insert('path', "g")
+                    .attr("class", "link")
+                    .attr('d', d => {
+                        const o = {x: source.x0, y: source.y0};
+                        return diagonal(o, o);
+                    });
+
+                // UPDATE
+                link.merge(linkEnter).transition()
+                    .duration(duration)
+                    .attr('d', d => diagonal(d, d.parent));
+
+                // Remove any exiting links
+                link.exit().transition()
+                    .duration(duration)
+                    .attr('d', d => {
+                        const o = {x: source.x, y: source.y};
+                        return diagonal(o, o);
+                    })
+                    .remove();
+
+                // Store the old positions for transition
+                nodes.forEach(d => {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+
+                function diagonal(s, d) {
+                    return `M ${s.y} ${s.x}
+                            C ${(s.y + d.y) / 2} ${s.x},
+                              ${(s.y + d.y) / 2} ${d.x},
+                              ${d.y} ${d.x}`;
+                }
+            }
+
+        } catch (error) {
+            showError(`An error occurred: ${error.message}`);
+            console.error('Detailed error:', error);
+        }
+    </script>
+</body>
+</html>

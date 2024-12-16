@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Focused Developer Platform Strategy - Cascading OKRs</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #0e4e5c;
+            color: #fff;
+        }
+        #okr-tree {
+            width: 100%;
+            height: 2000px;
+            overflow: auto;
+            border: 1px solid #fff;
+        }
+        .node rect {
+            fill-opacity: 0.9;
+            stroke: #fff;
+            stroke-width: 1px;
+        }
+        .node text {
+            font: 12px sans-serif;
+            fill: #4a90e2; /* Blue color for hyperlinks */
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .node text:hover {
+            fill: #2a6496;
+        }
+        .link {
+            fill: none;
+            stroke: #f4a261;
+            stroke-width: 1px;
+        }
+        .relation-link {
+            fill: none;
+            stroke: #e76f51;
+            stroke-width: 2px;
+            stroke-dasharray: 5,5;
+        }
+        .north-star rect { fill: #2a9d8f; }
+        .strategic-theme rect { fill: #e9c46a; }
+        .product-group rect { fill: #f4a261; }
+        .objective rect { fill: #e76f51; }
+        .key-result rect { fill: #264653; }
+        .node circle {
+            fill: #fff;
+            stroke: #f4a261;
+            stroke-width: 3px;
+        }
+        .description {
+            position: absolute;
+            background-color: #fff; /* White background for contrast */
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 300px;
+            z-index: 1000;
+            display: none;
+            color: #333; /* Dark text for readability */
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>AI-Focused Developer Platform Strategy - Cascading OKRs</h1>
+    <div id="okr-tree"></div>
+    <div id="description" class="description"></div>
+    <script>
+        const treeData = {
+            name: "North Star: Production in a Day",
+            type: "north-star",
+            children: [
+                {
+                    name: "Automation & Efficiency",
+                    type: "strategic-theme",
+                    children: [
+                        {
+                            name: "Streamline development lifecycle",
+                            type: "objective",
+                            children: [
+                                { name: "70% reduction in commit to production time", type: "key-result" },
+                                { name: "Double deployments within 24 hours", type: "key-result" },
+                                { name: "90% reduction in manual interventions", type: "key-result" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Developer Experience",
+                    type: "strategic-theme",
+                    children: [
+                        {
+                            name: "Create seamless developer journey",
+                            type: "objective",
+                            children: [
+                                { name: "Top quartile developer satisfaction", type: "key-result" },
+                                { name: "Halve context switching time", type: "key-result" },
+                                { name: "100% platform adoption", type: "key-result" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "AI-Accelerated Development",
+                    type: "strategic-theme",
+                    children: [
+                        {
+                            name: "Enhance productivity with AI",
+                            type: "objective",
+                            children: [
+                                { name: "30% increase in developer happiness", type: "key-result" },
+                                { name: "80% AI feature adoption", type: "key-result" },
+                                { name: "25% cost reduction through AI", type: "key-result" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "Product Groups",
+                    type: "product-group",
+                    children: [
+                        {
+                            name: "Code & Collaboration",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Accelerate code-to-review process",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Cut time from commit to passing all checks by 50%", type: "key-result" },
+                                        { name: "Reduce average code review time by 40%", type: "key-result" },
+                                        { name: "Boost first-time approval rate in code reviews by 30%", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Enhance developer productivity with AI-assisted coding",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Increase code completion accuracy by 50% using AI suggestions", type: "key-result" },
+                                        { name: "Reduce time spent on boilerplate code by 70%", type: "key-result" },
+                                        { name: "Improve developer satisfaction with coding tools by 40%", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Architecture & Design",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Streamline architecture design process using AI",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Decrease time from design initiation to approval by 50%", type: "key-result" },
+                                        { name: "Increase architecture design consistency by 80%", type: "key-result" },
+                                        { name: "Reduce costs associated with architectural rework by 40%", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Automate system modeling and documentation",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Reduce time spent on system modeling by 60%", type: "key-result" },
+                                        { name: "Achieve 90% accuracy in AI-generated technical documentation", type: "key-result" },
+                                        { name: "Increase developer satisfaction with documentation processes by 50%", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Observability",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Implement AI-driven predictive monitoring",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Predict 80% of potential system issues before they impact users", type: "key-result" },
+                                        { name: "Reduce false positive alerts by 70%", type: "key-result" },
+                                        { name: "Decrease costs related to system downtime by 50%", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Enhance system observability with AI-assisted insights",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Reduce mean time to resolution (MTTR) by 60% using AI insights", type: "key-result" },
+                                        { name: "Increase accuracy of performance bottleneck identification by 50%", type: "key-result" },
+                                        { name: "Improve developer satisfaction with monitoring tools by 45%", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Infrastructure & Operations",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Automate infrastructure management with AI",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Achieve 95% accuracy in AI-driven resource allocation", type: "key-result" },
+                                        { name: "Reduce infrastructure-related incidents by 80% through predictive AI", type: "key-result" },
+                                        { name: "Decrease infrastructure costs by 30% through AI-optimized resource utilization", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Enhance security posture using AI",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Detect and mitigate 90% of security threats automatically", type: "key-result" },
+                                        { name: "Reduce time to patch critical vulnerabilities by 70%", type: "key-result" },
+                                        { name: "Increase developer confidence in system security by 50%", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "APIs & Integrations",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Accelerate API development with AI assistance",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Reduce API design time by 60% using AI-powered tools", type: "key-result" },
+                                        { name: "Increase API specification accuracy to 95% with AI validation", type: "key-result" },
+                                        { name: "Improve developer satisfaction with API design process by 55%", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Enhance API discoverability and usage with AI",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Increase appropriate API reuse by 100% through AI recommendations", type: "key-result" },
+                                        { name: "Reduce API integration time by 50% with AI-assisted tooling", type: "key-result" },
+                                        { name: "Decrease costs associated with redundant API development by 40%", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name: "Developer Experience (DX)",
+                            type: "product-group",
+                            children: [
+                                {
+                                    name: "Create an AI-enhanced developer portal",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Reduce time to find relevant information by 70% using AI search", type: "key-result" },
+                                        { name: "Increase developer self-service resolution rate to 80% with AI assistance", type: "key-result" },
+                                        { name: "Improve overall developer satisfaction score by 40%", type: "key-result" }
+                                    ]
+                                },
+                                {
+                                    name: "Accelerate onboarding and learning with AI",
+                                    type: "objective",
+                                    children: [
+                                        { name: "Reduce new developer ramp-up time by 50% with AI-assisted onboarding", type: "key-result" },
+                                        { name: "Increase knowledge retention by 40% using AI-powered adaptive learning", type: "key-result" },
+                                        { name: "Decrease training and onboarding costs by 35% through AI-driven efficiencies", type: "key-result" }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const margin = {top: 20, right: 90, bottom: 30, left: 90};
+        const width = 2000 - margin.left - margin.right;
+        const height = 2000 - margin.top - margin.bottom;
+
+        const svg = d3.select("#okr-tree").append("svg")
+            .attr("width", width + margin.right + margin.left)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        let i = 0;
+        const duration = 750;
+        const root = d3.hierarchy(treeData, function(d) { return d.children; });
+        root.x0 = height / 2;
+        root.y0 = 0;
+
+        const treemap = d3.tree().size([height, width]);
+
+        update(root);
+
+        function update(source) {
+            const treeData = treemap(root);
+            const nodes = treeData.descendants();
+            const links = treeData.descendants().slice(1);
+
+            nodes.forEach(function(d){ d.y = d.depth * 180});
+
+            const node = svg.selectAll('g.node')
+                .data(nodes, function(d) {return d.id || (d.id = ++i); });
+
+            const nodeEnter = node.enter().append('g')
+                .attr('class', function(d) { return 'node ' + d.data.type; })
+                .attr("transform", function(d) {
+                    return "translate(" + source.y0 + "," + source.x0 + ")";
+                })
+                .on('click', click);
+
+            nodeEnter.append('circle')
+                .attr('class', 'node')
+                .attr('r', 1e-6)
+                .style("fill", function(d) {
+                    return d._children ? "#f4a261" : "#fff";
+                });
+
+            nodeEnter.append('text')
+                .attr("dy", ".35em")
+                .attr("x", function(d) {
+                    return d.children || d._children ? -13 : 13;
+                })
+                .attr("text-anchor", function(d) {
+                    return d.children || d._children ? "end" : "start";
+                })
+                .text(function(d) { return d.data.name; })
+                .style("fill-opacity", 1)
+                .style("text-decoration", "underline") // Ensure text is underlined
+                .style("fill", "#4a90e2") // Blue color for text
+                .on('click', showDescription)
+                .call(wrap, 150);
+
+            const nodeUpdate = nodeEnter.merge(node);
+
+            nodeUpdate.transition()
+                .duration(duration)
+                .attr("transform", function(d) { 
+                    return "translate(" + d.y + "," + d.x + ")";
+                });
+
+            nodeUpdate.select('circle.node')
+                .attr('r', 10)
+                .style("fill", function(d) {
+                    return d._children ? "#f4a261" : "#fff";
+                })
+                .attr('cursor', 'pointer');
+
+            nodeUpdate.select('text')
+                .style("fill-opacity", 1);
+
+            const nodeExit = node.exit().transition()
+                .duration(duration)
+                .attr("transform", function(d) {
+                    return "translate(" + source.y + "," + source.x + ")";
+                })
+                .remove();
+
+            nodeExit.select('circle')
+                .attr('r', 1e-6);
+
+            nodeExit.select('text')
+                .style('fill-opacity', 1e-6);
+
+            const link = svg.selectAll('path.link')
+                .data(links, function(d) { return d.id; });
+
+            const linkEnter = link.enter().insert('path', "g")
+                .attr("class", "link")
+                .attr('d', function(d){
+                    const o = {x: source.x0, y: source.y0}
+                    return diagonal(o, o)
+                });
+
+            const linkUpdate = linkEnter.merge(link);
+
+            linkUpdate.transition()
+                .duration(duration)
+                .attr('d', function(d){ return diagonal(d, d.parent) });
+
+            const linkExit = link.exit().transition()
+                .duration(duration)
+                .attr('d', function(d) {
+                    const o = {x: source.x, y: source.y}
+                    return diagonal(o, o)
+                })
+                .remove();
+
+            nodes.forEach(function(d){
+                d.x0 = d.x;
+                d.y0 = d.y;
+            });
+
+            // Add relation links
+            const relationLinks = svg.selectAll('path.relation-link')
+                .data(nodes.filter(d => d.data.relatesTo), d => d.id);
+
+            relationLinks.enter().insert('path', 'g')
+                .attr('class', 'relation-link')
+                .attr('d', function(d) {
+                    const target = nodes.find(n => n.data.name === d.data.relatesTo);
+                    if (target) {
+                        return `M ${d.y} ${d.x} L ${target.y} ${target.x}`;
+                    }
+                });
+
+            relationLinks.attr('d', function(d) {
+                const target = nodes.find(n => n.data.name === d.data.relatesTo);
+                if (target) {
+                    return `M ${d.y} ${d.x} L ${target.y} ${target.x}`;
+                }
+            });
+
+            relationLinks.exit().remove();
+
+            function diagonal(s, d) {
+                return `M ${s.y} ${s.x}
+                        C ${(s.y + d.y) / 2} ${s.x},
+                          ${(s.y + d.y) / 2} ${d.x},
+                          ${d.y} ${d.x}`;
+            }
+
+            function click(event, d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                update(d);
+            }
+        }
+
+        function wrap(text, width) {
+            text.each(function() {
+                var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1,
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy")),
+                    tspan = text.text(null).append("tspan").attr("x", function(d) { return d.children || d._children ? -13 : 13; }).attr("y", y).attr("dy", dy + "em");
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop();
+                        tspan.text(line.join(" "));
+                        line = [word];
+                        tspan = text.append("tspan").attr("x", function(d) { return d.children || d._children ? -13 : 13; }).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    }
+                }
+            });
+        }
+
+        function showDescription(event, d) {
+            event.stopPropagation();
+            const description = d.data.description || "No description available.";
+            const descriptionDiv = d3.select("#description");
+            descriptionDiv.html(description)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY + 10) + "px")
+                .style("display", "block");
+        }
+
+        d3.select("body").on("click", function() {
+            d3.select("#description").style("display", "none");
+        });
+
+        // Add descriptions to your treeData object
+        function addDescriptions(node) {
+            if (node.type === "north-star") {
+                node.description = "Our main goal: Achieve the ability to take code from commit to production deployment within 24 hours.";
+            } else if (node.type === "strategic-theme") {
+                if (node.name === "Automation & Efficiency") {
+                    node.description = "Automation & Efficiency focuses on streamlining processes to enhance productivity and reduce manual interventions.";
+                } else if (node.name === "Developer Experience") {
+                    node.description = "Developer Experience aims to create seamless and satisfying interactions for developers using our platform.";
+                } else if (node.name === "AI-Accelerated Development") {
+                    node.description = "AI-Accelerated Development leverages artificial intelligence to boost developer productivity and innovation.";
+                }
+                // Add more strategic themes as needed
+            } else if (node.type === "product-group") {
+                node.description = "A specific product area that contributes to our strategic themes.";
+            } else if (node.type === "objective") {
+                node.description = "A specific, measurable goal that supports our strategic themes.";
+            } else if (node.type === "key-result") {
+                node.description = "A quantifiable metric that measures progress towards an objective.";
+            }
+
+            if (node.children) {
+                node.children.forEach(addDescriptions);
+            }
+        }
+
+        addDescriptions(treeData);
+    </script>
+</body>
+</html>
