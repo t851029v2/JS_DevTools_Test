@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observability | Unicorn Developer Tools</title>
+    <style>
+        :root {
+            --primary-color: #663399;
+            --secondary-color: #E6E6FA;
+            --text-color: #333;
+            --link-color: #4A90E2;
+            --spacing: 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #1C1C27;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing);
+            margin-bottom: var(--spacing);
+        }
+
+        .breadcrumb {
+            margin-bottom: var(--spacing);
+            color: #B8A5EA;
+        }
+
+        .breadcrumb a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .content-section {
+            background: #282833;
+            border-radius: 8px;
+            padding: var(--spacing);
+            margin-bottom: var(--spacing);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: white;
+        }
+
+        .content-section h2 {
+            color: #B8A5EA;
+            margin-bottom: 1rem;
+        }
+
+        .content-section h3 {
+            color: #B8A5EA;
+            margin: 1rem 0;
+        }
+
+        .content-section p {
+            color: #A9A9B8;
+            margin-bottom: 1rem;
+        }
+
+        .collapsible {
+            background: none;
+            color: #B8A5EA;
+            cursor: pointer;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .collapsible:after {
+            content: '+';
+            font-size: 1.2rem;
+            color: #B8A5EA;
+        }
+
+        .active:after {
+            content: '-';
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .objective-section {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-label {
+            color: #B8A5EA;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .section-content {
+            margin-bottom: 1.5rem;
+            color: #A9A9B8;
+        }
+
+        .initiatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .initiative-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .initiative-card h4 {
+            color: #B8A5EA;
+            margin-bottom: 0.5rem;
+        }
+
+        .initiative-card p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: #A9A9B8;
+        }
+
+        .key-results-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .key-results-list li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.5rem;
+            color: #A9A9B8;
+        }
+
+        .key-results-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0.5em;
+            color: #B8A5EA;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            fill: white;
+            flex-shrink: 0;
+        }
+
+        .header-text {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <svg class="header-icon" viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/>
+                </svg>
+                <div class="header-text">
+                    <h1>Observability</h1>
+                    <p>Monitoring, logging, and system insights</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a> / Observability
+        </div>
+
+        <section class="content-section">
+            <h2>Mission</h2>
+            <p>Enhance system visibility and orchestrate automated workflows to enable early problem detection, accelerate resolution times, and ultimately elevate reliability and customer experience.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>Objectives</h2>
+            
+            <button class="collapsible">1. Simplify the onboarding experience for Dynatrace and PagerDuty</button>
+            <div class="collapsible-content">
+                <div class="objective-section">
+                    <div class="section-label">Key Results</div>
+                    <div class="section-content">
+                        <ul class="key-results-list">
+                            <li>Unify the onboarding process for both Dynatrace and PagerDuty thru templates</li>
+                            <li>Include metadata from API Marketplace and CMDB to relate services in DT/PagerDuty to CMDB and API Marketplace</li>
+                            <li>Improve observability SPOC through documentation and AI to elevate knowledge finding and help for developers, reducing toil</li>
+                        </ul>
+                    </div>
+
+                    <div class="section-label">Initiatives</div>
+                    <div class="initiatives-grid">
+                        <div class="initiative-card">
+                            <h4>Improve Customer Onboarding to Dynatrace and Pagerduty</h4>
+                            <p>Streamlining and unifying the onboarding process for both observability platforms</p>
+                        </div>
+
+                        <div class="initiative-card">
+                            <h4>Improve PagerDuty offboarding</h4>
+                            <p>Enhancing the offboarding process for PagerDuty to ensure smooth transitions</p>
+                        </div>
+
+                        <div class="initiative-card">
+                            <h4>Further enable use of AI for Observability SPOC and Documentation</h4>
+                            <p>Leveraging AI to improve support and documentation accessibility for developers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">2. Customer Journey Mapping</button>
+            <div class="collapsible-content">
+                <div class="objective-section">
+                    <div class="section-label">Key Results</div>
+                    <div class="section-content">
+                        <ul class="key-results-list">
+                            <li>Create a Dynatrace dashboard that shows key performance indicators of a typical buy journey</li>
+                        </ul>
+                    </div>
+
+                    <div class="section-label">Initiatives</div>
+                    <div class="initiatives-grid">
+                        <div class="initiative-card">
+                            <h4>Build Customer Journey Mapping and Customer Experience Dashboards</h4>
+                            <p>Creating comprehensive dashboards to visualize and monitor customer journey metrics and experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">3. Maturing our platform technology</button>
+            <div class="collapsible-content">
+                <div class="objective-section">
+                    <div class="section-label">Key Results</div>
+                    <div class="section-content">
+                        <ul class="key-results-list">
+                            <li>Enable configuration as code for Dynatrace platform modifications</li>
+                            <li>Enhance correlation between traces and logs for better incident and problem detection, analysis and resolution</li>
+                            <li>Enhance use of business events to correlate customer experience with system KPIs</li>
+                        </ul>
+                    </div>
+
+                    <div class="section-label">Initiatives</div>
+                    <div class="initiatives-grid">
+                        <div class="initiative-card">
+                            <h4>Complete configuration as code for Dynatrace Platform</h4>
+                            <p>Implementing infrastructure as code principles for Dynatrace platform configuration management</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 style="color: #B8A5EA; font-size: 1.5rem; margin-bottom: 2rem;">
+                <a href="https://docs.google.com/document/d/1am6s1HkURorgFCOYrNYiijs5aHZic19bQq4AUvz6_pc/edit?tab=t.0" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    Roadmap
+                    <svg style="width: 1em; height: 1em;" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                    </svg>
+                </a>
+            </h2>
+        </section>
+    </main>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+</body>
+</html> 
